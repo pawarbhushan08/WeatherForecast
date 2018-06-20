@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.example.bhushan.weatherforecast"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // fixes espresso conflict with supportAnnotation new version
+    configurations.all {
+        resolutionStrategy {
+            force rootProject.ext.testLibraries.supportAnnotations
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':data-lib')
+
+    testImplementation rootProject.ext.testLibraries.junit
+    testImplementation rootProject.ext.testLibraries.robolectric
+
+    androidTestImplementation rootProject.ext.testLibraries.espresso
+
+    implementation rootProject.ext.libraries.appCompat
+    implementation rootProject.ext.libraries.androidSupport
+    implementation rootProject.ext.libraries.designSupport
+    implementation rootProject.ext.libraries.vectorSupport
+    implementation rootProject.ext.libraries.recyclerView
+    implementation rootProject.ext.libraries.cardView
+    implementation rootProject.ext.libraries.constraintLayout
+
+    implementation rootProject.ext.libraries.rxandroid
+
+    implementation rootProject.ext.libraries.appSettings
+    implementation rootProject.ext.libraries.utils
+
+    implementation rootProject.ext.libraries.butterknife
+    annotationProcessor rootProject.ext.annotationProcessor.butterknifeCompiler
+
+    implementation rootProject.ext.libraries.dagger
+    annotationProcessor rootProject.ext.annotationProcessor.daggerCompiler
+
+    implementation rootProject.ext.libraries.timber
+
+}

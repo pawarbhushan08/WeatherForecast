@@ -1,0 +1,34 @@
+apply plugin: 'java-library'
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.libraries.rxjava
+
+    testImplementation rootProject.ext.testLibraries.junit
+    testImplementation rootProject.ext.testLibraries.mockito
+
+    implementation rootProject.ext.libraries.retrofit
+    implementation rootProject.ext.libraries.retrofitConverter
+    implementation rootProject.ext.libraries.retrofitAdapter
+
+    implementation rootProject.ext.libraries.okhttp
+    implementation rootProject.ext.libraries.okhttpLogging
+
+    implementation rootProject.ext.libraries.dagger
+    provided rootProject.ext.annotationProcessor.daggerCompiler
+    implementation 'junit:junit:4.12'
+    implementation 'org.mockito:mockito-core:1.10.19'
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
